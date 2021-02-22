@@ -55,9 +55,8 @@ def loadData(catalog):
 
 def loadBooks(catalog):
     """
-    Carga los libros del archivo.  Por cada libro se toman sus autores y por
-    cada uno de ellos, se crea en la lista de autores, a dicho autor y una
-    referencia al libro que se esta procesando.
+    Carga los libros del archivo.  Por cada libro se indica al
+    modelo que debe adicionarlo al catalogo.
     """
     booksfile = cf.data_dir + 'GoodReads/books-small.csv'
     input_file = csv.DictReader(open(booksfile))
@@ -67,7 +66,8 @@ def loadBooks(catalog):
 
 def loadTags(catalog):
     """
-    Carga todos los tags del archivo y los agrega a la lista de tags
+    Carga todos los tags del archivo e indica al modelo
+    que los adicione al catalogo
     """
     tagsfile = cf.data_dir + 'GoodReads/tags.csv'
     input_file = csv.DictReader(open(tagsfile))
@@ -77,7 +77,7 @@ def loadTags(catalog):
 
 def loadBooksTags(catalog):
     """
-    Carga la información que asocia tags con libros.
+    Carga la información que asocia tags con libros en el catalogo
     """
     booktagsfile = cf.data_dir + 'GoodReads/book_tags.csv'
     input_file = csv.DictReader(open(booktagsfile))
@@ -90,7 +90,7 @@ def loadBooksTags(catalog):
 
 def getBestBooks(catalog, number):
     """
-    Retorna los mejores libros
+    Retorna los mejores libros según su promedio
     """
     bestbooks = model.getBestBooks(catalog, number)
     return bestbooks
@@ -104,19 +104,22 @@ def countBooksByTag(catalog, tag):
 
 
 def booksSize(catalog):
-    """Numero de libros leido
+    """
+    Numero de libros cargados al catalogo
     """
     return model.booksSize(catalog)
 
 
 def authorsSize(catalog):
-    """Numero de autores leido
+    """
+    Numero de autores cargados al catalogo
     """
     return model.authorsSize(catalog)
 
 
 def tagsSize(catalog):
-    """Numero de tags leido
+    """
+    Numero de tags cargados al catalogo
     """
     return model.tagsSize(catalog)
 

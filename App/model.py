@@ -74,26 +74,39 @@ def newCatalog():
     replican informacion, solo referencian los libros de la lista
     creada en el paso anterior.
     """
+
+    """
+    Este indice crea un map cuya llave es el identificador del libro
+    """
     catalog['bookIds'] = mp.newMap(10000,
                                    maptype='CHAINING',
                                    loadfactor=0.7,
                                    comparefunction=compareMapBookIds)
 
+    """
+    Este indice crea un map cuya llave es el autor del libro
+    """
     catalog['authors'] = mp.newMap(800,
                                    maptype='CHAINING',
                                    loadfactor=0.7,
                                    comparefunction=compareAuthorsByName)
-
+    """
+    Este indice crea un map cuya llave es la etiqueta
+    """
     catalog['tags'] = mp.newMap(34500,
                                 maptype='PROBING',
                                 loadfactor=0.5,
                                 comparefunction=compareTagNames)
-
+    """
+    Este indice crea un map cuya llave es el Id de la etiqueta
+    """
     catalog['tagIds'] = mp.newMap(34500,
                                   maptype='CHAINING',
                                   loadfactor=0.7,
                                   comparefunction=compareTagIds)
-
+    """
+    Este indice crea un map cuya llave es el año de publicacion
+    """
     catalog['years'] = mp.newMap(40,
                                  maptype='PROBING',
                                  loadfactor=0.5,
@@ -107,7 +120,8 @@ def newCatalog():
 def newAuthor(name):
     """
     Crea una nueva estructura para modelar los libros de un autor
-    y su promedio de ratings
+    y su promedio de ratings. Se crea una lista para guardar los
+    libros de dicho autor.
     """
     author = {'name': "",
               "books": None,
@@ -141,6 +155,8 @@ def addBook(catalog, book):
     """
     Esta funcion adiciona un libro a la lista de libros,
     adicionalmente lo guarda en un Map usando como llave su Id.
+    Adicionalmente se guarda en el indice de autores, una referencia
+    al libro.
     Finalmente crea una entrada en el Map de años, para indicar que este
     libro fue publicaco en ese año.
     """
@@ -212,7 +228,8 @@ def addBookAuthor(catalog, authorname, book):
 
 def addTag(catalog, tag):
     """
-    Adiciona un tag a la tabla de tags dentro del catalogo
+    Adiciona un tag a la tabla de tags dentro del catalogo y se
+    actualiza el indice de identificadores del tag.
     """
     newtag = newBookTag(tag['tag_name'], tag['tag_id'])
     mp.put(catalog['tags'], tag['tag_name'], newtag)
@@ -238,7 +255,10 @@ def addBookTag(catalog, tag):
             lt.addLast(tagbook['value']['books'], book['value'])
 
 
+# ==============================
 # Funciones de consulta
+# ==============================
+
 
 def getBooksByAuthor(catalog, authorname):
     """
@@ -259,6 +279,16 @@ def getBooksByTag(catalog, tagname):
     if tag:
         books = me.getValue(tag)['books']
     return books
+
+
+def getBooksByYear(catalog, year):
+    """
+    Retorna los libros publicados en un año
+    """
+    year = mp.get(catalog['years'], year)
+    if year:
+        return me.getValue(year)['books']
+    return None
 
 
 def booksSize(catalog):
@@ -282,16 +312,6 @@ def tagsSize(catalog):
     return mp.size(catalog['tags'])
 
 
-def getBooksByYear(catalog, year):
-    """
-    Retorna los libros publicados en un año
-    """
-    year = mp.get(catalog['years'], year)
-    if year:
-        return me.getValue(year)['books']
-    return None
-
-
 # ==============================
 # Funciones de Comparacion
 # ==============================
@@ -299,7 +319,7 @@ def getBooksByYear(catalog, year):
 
 def compareBookIds(id1, id2):
     """
-    Compara dos ids de libros
+    Compara dos ids de dos libros
     """
     if (id1 == id2):
         return 0

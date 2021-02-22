@@ -39,6 +39,9 @@ operación solicitada
 
 
 def printAuthorData(author):
+    """
+    Imprime la información del autor seleccionado
+    """
     if author:
         print('Autor encontrado: ' + author['name'])
         print('Promedio: ' + str(author['average_rating']))
@@ -70,6 +73,10 @@ def printBooksbyYear(books):
 
 
 def printBestBooks(books):
+    """
+    Imprime la información de los mejores libros
+    por promedio
+    """
     size = lt.size(books)
     if size:
         print(' Estos son los mejores libros: ')
@@ -103,7 +110,7 @@ def initCatalog():
 
 def loadData(catalog):
     """
-    Carga los libros en la estructura de datos
+    Carga los libros en el catalogo
     """
     controller.loadData(catalog)
 
