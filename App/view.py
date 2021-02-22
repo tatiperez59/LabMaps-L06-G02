@@ -35,28 +35,7 @@ operación solicitada
 """
 
 
-def printMenu():
-    print("Bienvenido")
-    print("1- Inicializar Catálogo")
-    print("2- Cargar información en el catálogo")
-    print("3- Consultar los libros de un año")
-    print("4- Consultar los libros de un autor")
-    print("5- Consultar los Libros por etiqueta")
-    print("0- Salir")
-
-
-def initCatalog():
-    """
-    Inicializa el catalogo de libros
-    """
-    return controller.initCatalog()
-
-
-def loadData(catalog):
-    """
-    Carga los libros en la estructura de datos
-    """
-    controller.loadData(catalog)
+# Funciones para la impresión de resultados
 
 
 def printAuthorData(author):
@@ -101,10 +80,36 @@ def printBestBooks(books):
         print('No se encontraron libros')
 
 
+# Menu de opciones
 
-"""
-Menu principal
-"""
+def printMenu():
+    print("Bienvenido")
+    print("1- Inicializar Catálogo")
+    print("2- Cargar información en el catálogo")
+    print("3- Consultar los libros de un año")
+    print("4- Consultar los libros de un autor")
+    print("5- Consultar los Libros por etiqueta")
+    print("0- Salir")
+
+
+# Funciones de inicializacion
+
+def initCatalog():
+    """
+    Inicializa el catalogo de libros
+    """
+    return controller.initCatalog()
+
+
+def loadData(catalog):
+    """
+    Carga los libros en la estructura de datos
+    """
+    controller.loadData(catalog)
+
+
+# Menu principal
+
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')

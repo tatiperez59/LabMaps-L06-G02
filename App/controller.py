@@ -102,6 +102,7 @@ def countBooksByTag(catalog, tag):
     """
     return model.countBooksByTag(catalog, tag)
 
+
 def booksSize(catalog):
     """Numero de libros leido
     """
