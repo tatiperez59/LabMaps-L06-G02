@@ -57,9 +57,12 @@ def printBooksbyTag(books):
     Imprime los libros que han sido clasificados con
     una etiqueta
     """
-    print('Se encontraron: ' + str(lt.size(books)) + ' Libros.')
-    for book in lt.iterator(books):
-        print(book['title'])
+    if (books):
+        print('Se encontraron: ' + str(lt.size(books)) + ' Libros.')
+        for book in lt.iterator(books):
+            print(book['title'])
+    else:
+        print("No se econtraron libros. ")
 
 
 def printBooksbyYear(books):
@@ -67,9 +70,12 @@ def printBooksbyYear(books):
     Imprime los libros que han sido publicados en un
     año
     """
-    print('Se encontraron: ' + str(lt.size(books)) + ' Libros')
-    for book in lt.iterator(books):
-        print(book['title'])
+    if(books):
+        print('Se encontraron: ' + str(lt.size(books)) + ' Libros')
+        for book in lt.iterator(books):
+            print(book['title'])
+    else:
+        print("No se encontraron libros")
 
 
 def printBestBooks(books):
