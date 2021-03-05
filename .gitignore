@@ -127,3 +127,14 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#Python Cache
+# #Data
+*.csv
+!Data/GoodReads/books-small.csv
+!Data/GoodReads/book_tags-small.csv
+!Data/GoodReads/tags.csv
+
+.vim
+
+.DS_Store
