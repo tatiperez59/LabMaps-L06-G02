@@ -48,8 +48,9 @@ def printAuthorData(author):
         print('Total de libros: ' + str(lt.size(author['books'])))
         for book in lt.iterator(author['books']):
             print('Titulo: ' + book['title'] + '  ISBN: ' + book['isbn'])
+        print("\n")
     else:
-        print('No se encontro el autor')
+        print('No se encontro el autor.\n')
 
 
 def printBooksbyTag(books):
@@ -61,8 +62,9 @@ def printBooksbyTag(books):
         print('Se encontraron: ' + str(lt.size(books)) + ' Libros.')
         for book in lt.iterator(books):
             print(book['title'])
+        print("\n")
     else:
-        print("No se econtraron libros. ")
+        print("No se econtraron libros.\n")
 
 
 def printBooksbyYear(books):
@@ -74,8 +76,9 @@ def printBooksbyYear(books):
         print('Se encontraron: ' + str(lt.size(books)) + ' Libros')
         for book in lt.iterator(books):
             print(book['title'])
+        print("\n")
     else:
-        print("No se encontraron libros")
+        print("No se encontraron libros.\n")
 
 
 def printBestBooks(books):
@@ -89,8 +92,9 @@ def printBestBooks(books):
         for book in lt.iterator(books):
             print('Titulo: ' + book['title'] + '  ISBN: ' +
                   book['isbn'] + ' Rating: ' + book['average_rating'])
+        print("\n")
     else:
-        print('No se encontraron libros')
+        print('No se encontraron libros.\n')
 
 
 # Menu de opciones
