@@ -46,7 +46,7 @@ Este código está basado en las implementaciones propuestas en:
 """
 
 
-def newMap(numelements, prime, loadfactor, comparefunction):
+def newMap(numelements, prime, loadfactor, comparefunction, datastructure):
     """Crea una tabla de simbolos (map) sin orden
 
     Crea una tabla de hash con capacidad igual a nuelements
@@ -76,7 +76,8 @@ def newMap(numelements, prime, loadfactor, comparefunction):
                      'size': 0,
                      'limitfactor': loadfactor,
                      'currentfactor': 0,
-                     'type': 'CHAINING'}
+                     'type': 'CHAINING',
+                     'datastructure': datastructure}
         if(comparefunction is None):
             cmpfunc = defaultcompare
         else:
@@ -187,13 +188,12 @@ def remove(map, key):
     try:
         hash = hashValue(map, key)
         bucket = lt.getElement(map['table'], hash)
-        pos = lt.isPresent(bucket, key)
-        if pos > 0:
-            lt.deleteElement(bucket, pos)
-            map['size'] -= 1
-            return map
-        else:
-            return None
+        if (bucket is not None):
+            pos = lt.isPresent(bucket, key)
+            if pos > 0:
+                lt.deleteElement(bucket, pos)
+                map['size'] -= 1
+        return map
     except Exception as exp:
         error.reraise(exp, 'Chain:remove')
 
@@ -305,9 +305,10 @@ def rehash(map):
         map['capacity'] = capacity
         for pos in range(1, lt.size(oldtable)+1):
             bucket = lt.getElement(oldtable, pos)
-            for posbucket in range(1, lt.size(bucket)+1):
-                entry = lt.getElement(bucket, posbucket)
-                put(map, entry['key'], entry['value'])
+            if (lt.size(bucket) > 0):
+                for posbucket in range(1, lt.size(bucket)+1):
+                    entry = lt.getElement(bucket, posbucket)
+                    put(map, entry['key'], entry['value'])
         return map
     except Exception as exp:
         error.reraise(exp, "Chain:rehash")

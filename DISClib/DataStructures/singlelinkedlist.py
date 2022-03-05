@@ -40,7 +40,7 @@ assert config
 """
 
 
-def newList(cmpfunction, key, filename, delim):
+def newList(cmpfunction, module, key, filename, delim):
     """Crea una lista vacia.
 
     Se inicializan los apuntadores a la primera y ultima posicion en None.
@@ -70,7 +70,9 @@ def newList(cmpfunction, key, filename, delim):
                'last': None,
                'size': 0,
                'key': key,
-               'type': 'SINGLE_LINKED'}
+               'type': 'SINGLE_LINKED',
+               'datastructure': module
+               }
 
     if(cmpfunction is None):
         newlist['cmpfunction'] = defaultfunction
@@ -180,8 +182,9 @@ def firstElement(lst):
         Exception
     """
     try:
-        if 'info' in lst['first']:
+        if lst['first'] is not None:
             return lst['first']['info']
+        return None
     except Exception as exp:
         error.reraise(exp, 'singlelinkedlist->fisrtElement: ')
 
@@ -197,8 +200,9 @@ def lastElement(lst):
         Exception
     """
     try:
-        if 'info' in lst['last']:
+        if lst['last'] is not None:
             return lst['last']['info']
+        return None
     except Exception as exp:
         error.reraise(exp, 'singlelinkedlist->lastElement: ')
 
@@ -250,13 +254,14 @@ def deleteElement(lst, pos):
         searchpos = 1
         if (pos == 1):
             lst['first'] = lst['first']['next']
+            lst['size'] -= 1
         elif(pos > 1):
             while searchpos < pos:
                 searchpos += 1
                 prev = node
                 node = node['next']
             prev['next'] = node['next']
-        lst['size'] -= 1
+            lst['size'] -= 1
         return lst
     except Exception as exp:
         error.reraise(exp, 'singlelinkedlist->deleteElement: ')
@@ -339,9 +344,14 @@ def insertElement(lst, element, pos):
     """
     try:
         new_node = node.newSingleNode(element)
-        if (pos == 1):
+        if (lst['size'] == 0):
+            lst['first'] = new_node
+            lst['last'] = new_node
+
+        elif ((lst['size'] > 0) and (pos == 1)):
             new_node['next'] = lst['first']
             lst['first'] = new_node
+
         else:
             cont = 1
             prev = lst['first']
@@ -352,6 +362,7 @@ def insertElement(lst, element, pos):
                 cont += 1
             new_node['next'] = current
             prev['next'] = new_node
+
         lst['size'] += 1
         return lst
     except Exception as exp:
@@ -380,10 +391,11 @@ def isPresent(lst, element):
             node = lst['first']
             keyexist = False
             for keypos in range(1, size+1):
-                if (compareElements(lst, element, node['info']) == 0):
-                    keyexist = True
-                    break
-                node = node['next']
+                if (node is not None):
+                    if (compareElements(lst, element, node['info']) == 0):
+                        keyexist = True
+                        break
+                    node = node['next']
             if keyexist:
                 return keypos
         return 0
@@ -458,6 +470,7 @@ def subList(lst, pos, numelem):
                   'size': 0,
                   'type': 'SINGLE_LINKED',
                   'key': lst['key'],
+                  'datastructure': lst['datastructure'],
                   'cmpfunction': lst['cmpfunction']}
         cont = 1
         loc = pos
@@ -504,10 +517,13 @@ def compareElements(lst, element, info):
     Raises:
         Exception
     """
-    if(lst['key'] is not None):
-        return lst['cmpfunction'](element[lst['key']], info[lst['key']])
-    else:
-        return lst['cmpfunction'](element, info)
+    try:
+        if(lst['key'] is not None):
+            return lst['cmpfunction'](element[lst['key']], info[lst['key']])
+        else:
+            return lst['cmpfunction'](element, info)
+    except Exception as exp:
+        error.reraise(exp, 'singlelinkedlist->compareElements')
 
 
 def defaultfunction(id1, id2):

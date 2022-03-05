@@ -18,6 +18,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
+ * Contribuciones:
+ *
+ * Dario Correal - Version inicial
  """
 
 import config as cf
@@ -30,30 +33,31 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 
-# Inicialización del Catálogo de libros
-
-def initCatalog():
+def newController():
     """
-    Llama la funcion de inicializacion del catalogo del modelo.
+    Crea una instancia del modelo
     """
-    catalog = model.newCatalog()
-    return catalog
+    control = {
+        'model': None
+    }
+    control['model'] = model.newCatalog()
+    return control
 
 
 # Funciones para la carga de datos
 
 
-def loadData(catalog):
+def loadData(ctrlr):
     """
     Carga los datos de los archivos y cargar los datos en la
     estructura de datos
     """
-    loadBooks(catalog)
-    loadTags(catalog)
-    loadBooksTags(catalog)
+    loadBooks(ctrlr)
+    loadTags(ctrlr)
+    loadBooksTags(ctrlr)
 
 
-def loadBooks(catalog):
+def loadBooks(ctrlr):
     """
     Carga los libros del archivo.  Por cada libro se indica al
     modelo que debe adicionarlo al catalogo.
@@ -61,10 +65,10 @@ def loadBooks(catalog):
     booksfile = cf.data_dir + 'GoodReads/books-small.csv'
     input_file = csv.DictReader(open(booksfile))
     for book in input_file:
-        model.addBook(catalog, book)
+        model.addBook(ctrlr['model'], book)
 
 
-def loadTags(catalog):
+def loadTags(ctrlr):
     """
     Carga todos los tags del archivo e indica al modelo
     que los adicione al catalogo
@@ -72,79 +76,79 @@ def loadTags(catalog):
     tagsfile = cf.data_dir + 'GoodReads/tags.csv'
     input_file = csv.DictReader(open(tagsfile))
     for tag in input_file:
-        model.addTag(catalog, tag)
+        model.addTag(ctrlr['model'], tag)
 
 
-def loadBooksTags(catalog):
+def loadBooksTags(ctrlr):
     """
     Carga la información que asocia tags con libros en el catalogo
     """
     booktagsfile = cf.data_dir + 'GoodReads/book_tags.csv'
     input_file = csv.DictReader(open(booktagsfile))
     for booktag in input_file:
-        model.addBookTag(catalog, booktag)
+        model.addBookTag(ctrlr['model'], booktag)
 
 
 # Funciones de consulta sobre el catálogo
 
 
-def getBestBooks(catalog, number):
+def getBestBooks(ctrlr, number):
     """
     Retorna los mejores libros según su promedio
     """
-    bestbooks = model.getBestBooks(catalog, number)
+    bestbooks = model.getBestBooks(ctrlr['model'], number)
     return bestbooks
 
 
-def countBooksByTag(catalog, tag):
+def countBooksByTag(ctrlr, tag):
     """
     Retorna los libros que fueron etiquetados con el tag
     """
-    return model.countBooksByTag(catalog, tag)
+    return model.countBooksByTag(ctrlr['model'], tag)
 
 
-def booksSize(catalog):
+def booksSize(ctrlr):
     """
     Numero de libros cargados al catalogo
     """
-    return model.booksSize(catalog)
+    return model.booksSize(ctrlr['model'])
 
 
-def authorsSize(catalog):
+def authorsSize(ctrlr):
     """
     Numero de autores cargados al catalogo
     """
-    return model.authorsSize(catalog)
+    return model.authorsSize(ctrlr['model'])
 
 
-def tagsSize(catalog):
+def tagsSize(ctrlr):
     """
     Numero de tags cargados al catalogo
     """
-    return model.tagsSize(catalog)
+    return model.tagsSize(ctrlr['model'])
 
 
-def getBooksByAuthor(catalog, authorname):
+def getBooksByAuthor(ctrlr, authorname):
     """
     Retorna los libros de un autor
     """
-    authorinfo = model.getBooksByAuthor(catalog, authorname)
+    authorinfo = model.getBooksByAuthor(ctrlr['model'], authorname)
     return authorinfo
 
 
-def getBooksByTag(catalog, tagname):
+def getBooksByTag(ctrlr, tagname):
     """
     Retorna los libros que han sido marcados con
     una etiqueta
     """
-    books = model.getBooksByTag(catalog, tagname)
+    books = model.getBooksByTag(ctrlr['model'], tagname)
     return books
 
 
-def getBooksYear(catalog, year):
+def getBooksYear(ctrlr, year):
     """
     Retorna los libros que fueron publicados
     en un año
     """
-    books = model.getBooksByYear(catalog, year)
+    books = model.getBooksByYear(ctrlr['model'], year)
     return books

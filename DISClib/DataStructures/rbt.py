@@ -46,7 +46,7 @@ Algorithms, 4th Edition
 # ________________________________________________________________________
 
 
-def newMap(comparefunction=None):
+def newMap(omaptype, cmpfunction, datastructure):
     """
     Crea una tabla de simbolos ordenada.
     Args:
@@ -58,8 +58,15 @@ def newMap(comparefunction=None):
     """
     try:
         rbt = {'root': None,
-               'cmpfunction': comparefunction,
-               'type': 'RBT'}
+               'cmpfunction': None,
+               'type': omaptype,
+               'datastructure': datastructure}
+
+        if(cmpfunction is None):
+            rbt['cmpfunction'] = defaultfunction
+        else:
+            rbt['cmpfunction'] = cmpfunction
+
         return rbt
     except Exception as exp:
         error.reraise(exp, 'RBT:NewMap')
@@ -416,7 +423,7 @@ def keys(rbt, keylo, keyhi):
         Exception
     """
     try:
-        lstkeys = lt.newList('SINGLELINKED', rbt['cmpfunction'])
+        lstkeys = lt.newList('SINGLE_LINKED', rbt['cmpfunction'])
         lstkeys = keysRange(rbt['root'], keylo, keyhi, lstkeys,
                             rbt['cmpfunction'])
         return lstkeys
@@ -439,7 +446,7 @@ def values(rbt, keylo, keyhi):
         Exception
     """
     try:
-        lstvalues = lt.newList('SINGLELINKED', rbt['cmpfunction'])
+        lstvalues = lt.newList('SINGLE_LINKED', rbt['cmpfunction'])
         lstvalues = valuesRange(rbt['root'], keylo, keyhi, lstvalues,
                                 rbt['cmpfunction'])
         return lstvalues
@@ -1088,3 +1095,12 @@ def removeKey(root, key, cmpfunction):
 
     except Exception as exp:
         error.reraise(exp, 'RBT:removeKey')
+
+
+def defaultfunction(key1, key2):
+    if key1 == key2:
+        return 0
+    elif key1 < key2:
+        return -1
+    else:
+        return 1

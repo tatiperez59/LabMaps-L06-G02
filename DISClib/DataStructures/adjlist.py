@@ -27,8 +27,7 @@
 
 import config
 from DISClib.ADT import map as map
-from DISClib.DataStructures import liststructure as lt
-from DISClib.DataStructures import listiterator as it
+from DISClib.ADT import list as lt
 from DISClib.DataStructures import edge as e
 from DISClib.Utils import error as error
 assert config
@@ -40,7 +39,7 @@ Este código está basado en las implementaciones propuestas en:
 """
 
 
-def newGraph(size, cmpfunction, directed):
+def newGraph(size, cmpfunction, directed, type, datastructure):
     """
     Crea un grafo vacio
 
@@ -56,10 +55,11 @@ def newGraph(size, cmpfunction, directed):
     try:
         graph = {'vertices': None,
                  'edges': 0,
-                 'type': 'ADJ_LIST',
+                 'type': type,
                  'comparefunction': cmpfunction,
                  'directed': directed,
-                 'indegree': None
+                 'indegree': None,
+                 'datastructure': datastructure
                  }
         graph['vertices'] = map.newMap(numelements=size,
                                        maptype='PROBING',
@@ -179,13 +179,9 @@ def edges(graph):
     """
     try:
         lstmap = map.valueSet(graph['vertices'])
-        itervertex = it.newIterator(lstmap)
         lstresp = lt.newList('SINGLE_LINKED', e.compareedges)
-        while it.hasNext(itervertex):
-            lstedge = it.next(itervertex)
-            iteredge = it.newIterator(lstedge)
-            while (it.hasNext(iteredge)):
-                edge = it.next(iteredge)
+        for lstedge in lt.iterator(lstmap):
+            for edge in lt.iterator(lstedge):
                 if (graph['directed']):
                     lt.addLast(lstresp, edge)
                 elif (not lt.isPresent(lstresp, edge)):
@@ -278,9 +274,7 @@ def getEdge(graph, vertexa, vertexb):
     try:
         element = map.get(graph['vertices'], vertexa)
         lst = element['value']
-        itvertex = it.newIterator(lst)
-        while (it.hasNext(itvertex)):
-            edge = it.next(itvertex)
+        for edge in lt.iterator(lst):
             if (graph['directed']):
                 if (e.either(edge) == vertexa and
                    (e.other(edge, e.either(edge)) == vertexb)):
@@ -341,7 +335,8 @@ def addEdge(graph, vertexa, vertexb, weight=0):
         lt.addLast(entrya['value'], edge)
         if (not graph['directed']):
             entryb = map.get(graph['vertices'], vertexb)
-            lt.addLast(entryb['value'], edge)
+            edgeb = e.newEdge(vertexb, vertexa, weight)
+            lt.addLast(entryb['value'], edgeb)
         else:
             degree = map.get(graph['indegree'], vertexb)
             map.put(graph['indegree'], vertexb, degree['value']+1)
@@ -368,9 +363,7 @@ def adjacents(graph, vertex):
         element = map.get(graph['vertices'], vertex)
         lst = element['value']
         lstresp = lt.newList()
-        iter = it.newIterator(lst)
-        while (it.hasNext(iter)):
-            edge = it.next(iter)
+        for edge in lt.iterator(lst):
             v = e.either(edge)
             if (v == vertex):
                 lt.addLast(lstresp, e.other(edge, v))
