@@ -18,6 +18,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
+ * Contribuciones:
+ *
+ * Dario Correal - Version inicial
  """
 
 import config as cf
@@ -33,6 +36,15 @@ Presenta el menu de opciones  y  por cada seleccion
 se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
+
+
+# Inicializacion de la comunicacion con el controlador
+def newController():
+    """
+    Se crea una instancia del controlador
+    """
+    control = controller.newController()
+    return control
 
 
 # Funciones para la impresión de resultados
@@ -99,6 +111,7 @@ def printBestBooks(books):
 
 # Menu de opciones
 
+
 def printMenu():
     print("Bienvenido")
     print("1- Inicializar Catálogo")
@@ -109,53 +122,41 @@ def printMenu():
     print("0- Salir")
 
 
-# Funciones de inicializacion
-
-def initCatalog():
-    """
-    Inicializa el catalogo de libros
-    """
-    return controller.initCatalog()
-
-
-def loadData(catalog):
-    """
-    Carga los libros en el catalogo
-    """
-    controller.loadData(catalog)
-
-
 # Menu principal
-
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
 
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo ....")
-        cont = controller.initCatalog()
+        # Se crea el controlador asociado a la vista
+        ctrlr = newController()
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
-        controller.loadData(cont)
-        print('Libros cargados: ' + str(controller.booksSize(cont)))
-        print('Autores cargados: ' + str(controller.authorsSize(cont)))
-        print('Géneros cargados: ' + str(controller.tagsSize(cont)))
+        controller.loadData(ctrlr)
+        print('Libros cargados: ' + str(controller.booksSize(ctrlr)))
+        print('Autores cargados: ' + str(controller.authorsSize(ctrlr)))
+        print('Géneros cargados: ' + str(controller.tagsSize(ctrlr)))
 
     elif int(inputs[0]) == 3:
         number = input("Buscando libros del año?: ")
-        books = controller.getBooksYear(cont, int(number))
+        books = controller.getBooksYear(ctrlr, int(number))
         printBooksbyYear(books)
 
     elif int(inputs[0]) == 4:
         authorname = input("Nombre del autor a buscar: ")
-        authorinfo = controller.getBooksByAuthor(cont, authorname)
+        authorinfo = controller.getBooksByAuthor(ctrlr, authorname)
         printAuthorData(authorinfo)
 
     elif int(inputs[0]) == 5:
         label = input("Etiqueta a buscar: ")
-        books = controller.getBooksByTag(cont, label)
+        books = controller.getBooksByTag(ctrlr, label)
         printBooksbyTag(books)
+
+    elif int(inputs[0]) == 0:
+        break
+
     else:
-        sys.exit(0)
+        continue
 sys.exit(0)
