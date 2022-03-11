@@ -109,6 +109,13 @@ def printBestBooks(books):
         print('No se encontraron libros.\n')
 
 
+def printBooksbyTitle(books):
+    # TODO modificaciones para el laboratorio 6
+    """
+    Completar la descripcion de printBooksbyTitle
+    """
+    pass
+
 # Menu de opciones
 
 
@@ -119,6 +126,8 @@ def printMenu():
     print("3- Consultar los libros de un año")
     print("4- Consultar los libros de un autor")
     print("5- Consultar los Libros por etiqueta")
+    # TODO modificaciones para el laboratorio 6
+    # Agregar opcion para el nuevo indice
     print("0- Salir")
 
 
@@ -153,6 +162,10 @@ while True:
         label = input("Etiqueta a buscar: ")
         books = controller.getBooksByTag(ctrlr, label)
         printBooksbyTag(books)
+
+    elif int(inputs[0]) == 6:
+        # TODO modificaciones para el laboratorio 6
+        pass
 
     elif int(inputs[0]) == 0:
         break

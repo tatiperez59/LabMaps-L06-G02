@@ -112,6 +112,12 @@ def newCatalog():
                                  loadfactor=0.5,
                                  comparefunction=compareMapYear)
 
+    # TODO modificaciones para el laboratorio 6
+    """
+    Este indice crea un map cuya llave es el titulo del libro
+    La columna 'title' del archivo books.csv
+    """
+
     return catalog
 
 
@@ -255,6 +261,14 @@ def addBookTag(catalog, tag):
             lt.addLast(tagbook['value']['books'], book['value'])
 
 
+def addBookTitle(catalog, title):
+    # TODO modificaciones para el laboratorio 6
+    """
+    Completar la descripcion de addBookTitle
+    """
+    pass
+
+
 # ==============================
 # Funciones de consulta
 # ==============================
@@ -291,6 +305,14 @@ def getBooksByYear(catalog, year):
     return None
 
 
+def getBookByTitle(catalog, title):
+    # TODO modificaciones para el laboratorio 6
+    """
+    Completar la descripcion de getBookByTitle
+    """
+    pass
+
+
 def booksSize(catalog):
     """
     Número de libros en el catago
@@ -310,6 +332,14 @@ def tagsSize(catalog):
     Numero de tags en el catalogo
     """
     return mp.size(catalog['tags'])
+
+
+def titlesSize(catalog):
+    # TODO modificaciones para el laboratorio 6
+    """
+    Completar la descripcion de titlesSize
+    """
+    pass
 
 
 # ==============================
@@ -394,3 +424,11 @@ def compareYears(year1, year2):
         return 1
     else:
         return 0
+
+
+def compareTitles(title1, title2):
+    # TODO modificaciones para el laboratorio 6
+    """
+    Completar la descripcion de compareTitles
+    """
+    pass

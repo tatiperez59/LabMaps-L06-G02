@@ -58,8 +58,9 @@ def loadData(ctrlr):
 
 
 def loadBooks(ctrlr):
+    # TODO modificaciones para el laboratorio 6
     """
-    Carga los libros del archivo.  Por cada libro se indica al
+    Carga los libros del archivo. Por cada libro se indica al
     modelo que debe adicionarlo al catalogo.
     """
     booksfile = cf.data_dir + 'GoodReads/books-small.csv'
@@ -152,3 +153,27 @@ def getBooksYear(ctrlr, year):
     """
     books = model.getBooksByYear(ctrlr['model'], year)
     return books
+
+
+def getBooksByTittle(ctrlr, title):
+    # TODO modificaciones para el laboratorio 6
+    """
+    Completar la descripcion de getBooksByTittle
+    """
+    pass
+
+
+def titlesSize(ctrlr):
+    # TODO modificaciones para el laboratorio 6
+    """
+    Completar la descripcion de titlesSize
+    """
+    pass
+
+
+def getBookByTitle(ctrlr, title):
+    # TODO modificaciones para el laboratorio 6
+    """
+    Completar la descripcion de getBookByTitle
+    """
+    pass
