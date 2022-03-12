@@ -169,11 +169,3 @@ def titlesSize(ctrlr):
     Completar la descripcion de titlesSize
     """
     pass
-
-
-def getBookByTitle(ctrlr, title):
-    # TODO modificaciones para el laboratorio 6
-    """
-    Completar la descripcion de getBookByTitle
-    """
-    pass
