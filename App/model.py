@@ -80,7 +80,7 @@ def newCatalog():
     """
     catalog['bookIds'] = mp.newMap(10000,
                                    maptype='CHAINING',
-                                   loadfactor=2,
+                                   loadfactor=4,
                                    comparefunction=compareMapBookIds)
 
     """
@@ -88,7 +88,7 @@ def newCatalog():
     """
     catalog['authors'] = mp.newMap(800,
                                    maptype='CHAINING',
-                                   loadfactor=2,
+                                   loadfactor=4,
                                    comparefunction=compareAuthorsByName)
     """
     Este indice crea un map cuya llave es la etiqueta
