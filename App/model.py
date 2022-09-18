@@ -53,6 +53,7 @@ def newCatalog():
 
     Retorna el catalogo inicializado.
     """
+    # TODO lab 6, agregar llave de "titles" para el indice de libros
     catalog = {'books': None,
                'bookIds': None,
                'authors': None,
@@ -97,6 +98,7 @@ def newCatalog():
                                 maptype='PROBING',
                                 loadfactor=0.5,
                                 comparefunction=compareTagNames)
+
     """
     Este indice crea un map cuya llave es el Id de la etiqueta
     """
@@ -104,6 +106,7 @@ def newCatalog():
                                   maptype='PROBING',
                                   loadfactor=0.5,
                                   comparefunction=compareTagIds)
+
     """
     Este indice crea un map cuya llave es el año de publicacion
     """
@@ -112,11 +115,12 @@ def newCatalog():
                                  loadfactor=0.5,
                                  comparefunction=compareMapYear)
 
-    # TODO modificaciones para el laboratorio 6
     """
     Este indice crea un map cuya llave es el titulo del libro
-    La columna 'title' del archivo books.csv
+    La columna 'titles' del archivo books.csv
     """
+    # TODO lab 6, agregar el ADT map con newMap()
+    catalog['titles'] = None
 
     return catalog
 
@@ -262,7 +266,7 @@ def addBookTag(catalog, tag):
 
 
 def addBookTitle(catalog, title):
-    # TODO modificaciones para el laboratorio 6
+    # TODO lab 6, agregar el libro al map de titulos
     """
     Completar la descripcion de addBookTitle
     """
@@ -306,7 +310,7 @@ def getBooksByYear(catalog, year):
 
 
 def getBookByTitle(catalog, title):
-    # TODO modificaciones para el laboratorio 6
+    # TODO lab 6, retornar el libro con el titulo dado
     """
     Completar la descripcion de getBookByTitle
     """
@@ -335,7 +339,7 @@ def tagsSize(catalog):
 
 
 def titlesSize(catalog):
-    # TODO modificaciones para el laboratorio 6
+    # TODO lab 6, retornar el numero de libros en el catalogo
     """
     Completar la descripcion de titlesSize
     """
@@ -427,7 +431,7 @@ def compareYears(year1, year2):
 
 
 def compareTitles(title1, title2):
-    # TODO modificaciones para el laboratorio 6
+    # TODO lab 6, cmp para comparar dos titulos de libros para ADT Map
     """
     Completar la descripcion de compareTitles
     """

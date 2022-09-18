@@ -58,7 +58,7 @@ def loadData(ctrlr):
 
 
 def loadBooks(ctrlr):
-    # TODO modificaciones para el laboratorio 6
+    # TODO lab 6, incluir el indice de libros por titulo con ADT Map
     """
     Carga los libros del archivo. Por cada libro se indica al
     modelo que debe adicionarlo al catalogo.
@@ -155,8 +155,8 @@ def getBooksYear(ctrlr, year):
     return books
 
 
-def getBooksByTittle(ctrlr, title):
-    # TODO modificaciones para el laboratorio 6
+def getBooksByTitle(ctrlr, title):
+    # TODO lab 6, conectar con la funcion model.getBooksByTitle()
     """
     Completar la descripcion de getBooksByTittle
     """
@@ -164,7 +164,7 @@ def getBooksByTittle(ctrlr, title):
 
 
 def titlesSize(ctrlr):
-    # TODO modificaciones para el laboratorio 6
+    # TODO lab 6, conectar con la funcion model.titlesSize()
     """
     Completar la descripcion de titlesSize
     """
