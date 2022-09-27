@@ -408,17 +408,17 @@ def compareTagIds(id, tag):
     elif (int(id) > int(tagentry)):
         return 1
     else:
-        return 0
+        return -1
 
 
-def compareMapYear(id, tag):
-    tagentry = me.getKey(tag)
-    if (id == tagentry):
+def compareMapYear(year, book):
+    bookentry = me.getKey(book)
+    if (year == bookentry):
         return 0
-    elif (id > tagentry):
+    elif (year > bookentry):
         return 1
     else:
-        return 0
+        return -1
 
 
 def compareYears(year1, year2):
@@ -427,12 +427,19 @@ def compareYears(year1, year2):
     elif (int(year1) > int(year2)):
         return 1
     else:
-        return 0
+        return -1
 
 
-def compareTitles(title1, title2):
+def compareTitles(title, book):
     # TODO lab 6, cmp para comparar dos titulos de libros para ADT Map
-    """
-    Completar la descripcion de compareTitles
+    """ Completar la descripcion de compareTitles
+
+    Args:
+        title (str): titulo del libro
+        book (ADT mapentry): map entry con el libro
+
+    Returns:
+        int: retrona 0 si son iguales, 1 si el primero es mayor
+        y -1 si el primero es menor
     """
     pass
