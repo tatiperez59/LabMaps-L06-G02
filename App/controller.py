@@ -47,17 +47,17 @@ def newController():
 # Funciones para la carga de datos
 
 
-def loadData(ctrlr):
+def loadData(control):
     """
     Carga los datos de los archivos y cargar los datos en la
     estructura de datos
     """
-    loadBooks(ctrlr)
-    loadTags(ctrlr)
-    loadBooksTags(ctrlr)
+    loadBooks(control)
+    loadTags(control)
+    loadBooksTags(control)
 
 
-def loadBooks(ctrlr):
+def loadBooks(control):
     # TODO lab 6, incluir el indice de libros por titulo con ADT Map
     """
     Carga los libros del archivo. Por cada libro se indica al
@@ -66,10 +66,10 @@ def loadBooks(ctrlr):
     booksfile = cf.data_dir + 'GoodReads/books-small.csv'
     input_file = csv.DictReader(open(booksfile, encoding='utf-8'))
     for book in input_file:
-        model.addBook(ctrlr['model'], book)
+        model.addBook(control['model'], book)
 
 
-def loadTags(ctrlr):
+def loadTags(control):
     """
     Carga todos los tags del archivo e indica al modelo
     que los adicione al catalogo
@@ -77,85 +77,85 @@ def loadTags(ctrlr):
     tagsfile = cf.data_dir + 'GoodReads/tags.csv'
     input_file = csv.DictReader(open(tagsfile, encoding='utf-8'))
     for tag in input_file:
-        model.addTag(ctrlr['model'], tag)
+        model.addTag(control['model'], tag)
 
 
-def loadBooksTags(ctrlr):
+def loadBooksTags(control):
     """
     Carga la información que asocia tags con libros en el catalogo
     """
     booktagsfile = cf.data_dir + 'GoodReads/book_tags-small.csv'
     input_file = csv.DictReader(open(booktagsfile, encoding='utf-8'))
     for booktag in input_file:
-        model.addBookTag(ctrlr['model'], booktag)
+        model.addBookTag(control['model'], booktag)
 
 
 # Funciones de consulta sobre el catálogo
 
 
-def getBestBooks(ctrlr, number):
+def getBestBooks(control, number):
     """
     Retorna los mejores libros según su promedio
     """
-    bestbooks = model.getBestBooks(ctrlr['model'], number)
+    bestbooks = model.getBestBooks(control['model'], number)
     return bestbooks
 
 
-def countBooksByTag(ctrlr, tag):
+def countBooksByTag(control, tag):
     """
     Retorna los libros que fueron etiquetados con el tag
     """
-    return model.countBooksByTag(ctrlr['model'], tag)
+    return model.countBooksByTag(control['model'], tag)
 
 
-def booksSize(ctrlr):
+def booksSize(control):
     """
     Numero de libros cargados al catalogo
     """
-    return model.booksSize(ctrlr['model'])
+    return model.booksSize(control['model'])
 
 
-def authorsSize(ctrlr):
+def authorsSize(control):
     """
     Numero de autores cargados al catalogo
     """
-    return model.authorsSize(ctrlr['model'])
+    return model.authorsSize(control['model'])
 
 
-def tagsSize(ctrlr):
+def tagsSize(control):
     """
     Numero de tags cargados al catalogo
     """
-    return model.tagsSize(ctrlr['model'])
+    return model.tagsSize(control['model'])
 
 
-def getBooksByAuthor(ctrlr, authorname):
+def getBooksByAuthor(control, authorname):
     """
     Retorna los libros de un autor
     """
-    authorinfo = model.getBooksByAuthor(ctrlr['model'], authorname)
+    authorinfo = model.getBooksByAuthor(control['model'], authorname)
     return authorinfo
 
 
-def getBooksByTag(ctrlr, tagname):
+def getBooksByTag(control, tagname):
     """
     Retorna los libros que han sido marcados con
     una etiqueta
     """
-    books = model.getBooksByTag(ctrlr['model'], tagname)
+    books = model.getBooksByTag(control['model'], tagname)
     return books
 
 
-def getBooksYear(ctrlr, year):
+def getBooksYear(control, year):
     """
     Retorna los libros que fueron publicados
     en un año
     """
-    books = model.getBooksByYear(ctrlr['model'], year)
+    books = model.getBooksByYear(control['model'], year)
     return books
 
 
-def getBooksByTitle(ctrlr, title):
+def getBooksByTitle(control, title):
     # TODO lab 6, conectar con la funcion model.getBooksByTitle()
     """
     Completar la descripcion de getBooksByTittle
@@ -163,7 +163,7 @@ def getBooksByTitle(ctrlr, title):
     pass
 
 
-def titlesSize(ctrlr):
+def titlesSize(control):
     # TODO lab 6, conectar con la funcion model.titlesSize()
     """
     Completar la descripcion de titlesSize
