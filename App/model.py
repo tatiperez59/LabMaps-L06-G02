@@ -82,7 +82,7 @@ def newCatalog():
     catalog['bookIds'] = mp.newMap(10000,
                                    maptype='CHAINING',
                                    loadfactor=4,
-                                   comparefunction=compareMapBookIds)
+                                   cmpfunction=compareMapBookIds)
 
     """
     Este indice crea un map cuya llave es el autor del libro
@@ -90,14 +90,14 @@ def newCatalog():
     catalog['authors'] = mp.newMap(800,
                                    maptype='CHAINING',
                                    loadfactor=4,
-                                   comparefunction=compareAuthorsByName)
+                                   cmpfunction=compareAuthorsByName)
     """
     Este indice crea un map cuya llave es la etiqueta
     """
     catalog['tags'] = mp.newMap(34500,
                                 maptype='PROBING',
                                 loadfactor=0.5,
-                                comparefunction=compareTagNames)
+                                cmpfunction=compareTagNames)
 
     """
     Este indice crea un map cuya llave es el Id de la etiqueta
@@ -105,7 +105,7 @@ def newCatalog():
     catalog['tagIds'] = mp.newMap(34500,
                                   maptype='PROBING',
                                   loadfactor=0.5,
-                                  comparefunction=compareTagIds)
+                                  cmpfunction=compareTagIds)
 
     """
     Este indice crea un map cuya llave es el año de publicacion
@@ -113,7 +113,7 @@ def newCatalog():
     catalog['years'] = mp.newMap(40,
                                  maptype='PROBING',
                                  loadfactor=0.5,
-                                 comparefunction=compareMapYear)
+                                 cmpfunction=compareMapYear)
 
     """
     Este indice crea un map cuya llave es el titulo del libro
